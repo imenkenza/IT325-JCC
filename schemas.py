@@ -1,5 +1,9 @@
 from marshmallow import Schema, fields
 
+class VenueSchema(Schema):
+    venue_id = fields.UUID(dump_only=True)
+    name = fields.Str(required=True)
+    
 class FilmSchema(Schema):
     id = fields.UUID(dump_only=True)
     title = fields.Str(required=True)
@@ -7,11 +11,7 @@ class FilmSchema(Schema):
     release_date = fields.Date(required=True)
     genre = fields.Str(required=True)
 
-class VenueSchema(Schema):
-    id = fields.UUID(dump_only=True)
-    name = fields.Str(required=True)
-    location = fields.Str(required=True)
-    capacity = fields.Int(required=True)
+
 
 class EventSchema(Schema):
     id = fields.UUID(dump_only=True)

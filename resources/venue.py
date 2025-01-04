@@ -5,6 +5,8 @@ from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from models.venue import VenueModel
 from schemas import VenueSchema
 from db import db
+import uuid
+
 
 blp = Blueprint("Venues", "venues", description="Operations on venues")
 
@@ -19,7 +21,7 @@ class VenueList(MethodView):
     @blp.response(201, VenueSchema)
     def post(self, venue_data):
         """Create a new venue"""
-        venue_data['id'] = uuid.uuid4()
+        venue_data['venue_id'] = uuid.uuid4()
         venue = VenueModel(**venue_data)
         try:
             db.session.add(venue)
