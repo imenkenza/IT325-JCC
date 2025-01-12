@@ -1,0 +1,522 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Movie API"
+schemes:
+  - "http"
+paths:
+  /register:
+    post:
+      summary: "Register a new user"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              email:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        201:
+          description: "User Created Successfully"
+        400:
+          description: "Invalid data"
+        409:
+          description: "Username or Email already exist"
+  /login:
+    post:
+      summary: "Login the user"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        200:
+          description: "Logged in Successfuly"
+        401:
+           description: "Invalid username or password"
+        400:
+          description: "Invalid Data"
+  /users:
+    get:
+      summary: "Get all the users"
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: "list of users"
+        401:
+          description: "Unauthorized action"
+  /users/{id}:
+     get:
+      summary: "Get user by ID"
+      security:
+        - bearerAuth: []
+      parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+      responses:
+        200:
+          description: "User information"
+        404:
+           description: "User not found"
+        401:
+          description: "Unauthorized action"
+     delete:
+      summary: "Delete a user by ID"
+      security:
+        - bearerAuth: []
+      parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+      responses:
+        200:
+          description: "User deleted"
+        404:
+           description: "User not found"
+        401:
+          description: "Unauthorized action"
+  /films:
+    get:
+      summary: "Get all the films"
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: "list of films"
+        401:
+          description: "Unauthorized action"
+    post:
+        summary: "Create a new film"
+        security:
+            - bearerAuth: []
+        parameters:
+          - in: "body"
+            name: "body"
+            required: true
+            schema:
+              type: "object"
+              properties:
+                title:
+                  type: "string"
+                category:
+                  type: "string"
+                genre:
+                  type: "string"
+                country:
+                  type: "string"
+                duration:
+                  type: "integer"
+                description:
+                  type: "string"
+        responses:
+          201:
+              description: "Film Created Successfully"
+          401:
+             description: "Unauthorized action"
+          400:
+            description: "Invalid data"
+  /films/{id}:
+    get:
+      summary: "Get film by ID"
+      security:
+        - bearerAuth: []
+      parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+      responses:
+        200:
+          description: "Film information"
+        404:
+           description: "Film not found"
+        401:
+          description: "Unauthorized action"
+    put:
+        summary: "Update a film by ID"
+        security:
+           - bearerAuth: []
+        parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "body"
+            required: true
+            schema:
+                type: "object"
+                properties:
+                  title:
+                    type: "string"
+                  category:
+                    type: "string"
+                  genre:
+                    type: "string"
+                  country:
+                    type: "string"
+                  duration:
+                    type: "integer"
+                  description:
+                    type: "string"
+        responses:
+            200:
+              description: "Film updated Successfully"
+            404:
+               description: "Film not found"
+            401:
+              description: "Unauthorized action"
+            400:
+              description: "Invalid data"
+    delete:
+        summary: "Delete film by ID"
+        security:
+            - bearerAuth: []
+        parameters:
+            - in: "path"
+              name: "id"
+              required: true
+              type: "integer"
+        responses:
+            200:
+              description: "Film Deleted Successfully"
+            404:
+               description: "Film not found"
+            401:
+              description: "Unauthorized action"
+  /venues:
+    get:
+      summary: "Get all the venues"
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: "list of venues"
+        401:
+          description: "Unauthorized action"
+    post:
+        summary: "Create a new venue"
+        security:
+            - bearerAuth: []
+        parameters:
+            - in: "body"
+              name: "body"
+              required: true
+              schema:
+                 type: "object"
+                 properties:
+                   name:
+                     type: "string"
+        responses:
+            201:
+              description: "Venue Created Successfully"
+            401:
+               description: "Unauthorized action"
+            400:
+               description: "Invalid data"
+  /venues/{id}:
+    put:
+        summary: "Update a venue by ID"
+        security:
+           - bearerAuth: []
+        parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "body"
+            required: true
+            schema:
+                type: "object"
+                properties:
+                  name:
+                    type: "string"
+        responses:
+            200:
+              description: "Venue updated Successfully"
+            404:
+               description: "Venue not found"
+            401:
+              description: "Unauthorized action"
+            400:
+              description: "Invalid data"
+    delete:
+        summary: "Delete a venue by ID"
+        security:
+            - bearerAuth: []
+        parameters:
+            - in: "path"
+              name: "id"
+              required: true
+              type: "integer"
+        responses:
+            200:
+              description: "Venue deleted Successfully"
+            404:
+               description: "Venue not found"
+            401:
+              description: "Unauthorized action"
+  /events:
+    get:
+      summary: "Get all the events"
+      security:
+          - bearerAuth: []
+      responses:
+          200:
+              description: "List of events"
+          401:
+              description: "Unauthorized action"
+    post:
+        summary: "Create a new event"
+        security:
+            - bearerAuth: []
+        parameters:
+            - in: "body"
+              name: "body"
+              required: true
+              schema:
+                 type: "object"
+                 properties:
+                   film_id:
+                     type: "integer"
+                   venue_id:
+                     type: "integer"
+                   date:
+                     type: "string"
+                   start_time:
+                     type: "string"
+        responses:
+            201:
+                description: "Event created successfuly"
+            401:
+                description: "Unauthorized action"
+            400:
+                description: "Invalid data"
+  /events/{id}:
+    get:
+        summary: "Get an event by ID"
+        security:
+          - bearerAuth: []
+        parameters:
+            - in: "path"
+              name: "id"
+              required: true
+              type: "integer"
+        responses:
+            200:
+              description: "Event information"
+            404:
+              description: "Event not found"
+            401:
+              description: "Unauthorized action"
+    put:
+        summary: "Update an event by ID"
+        security:
+           - bearerAuth: []
+        parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "body"
+            required: true
+            schema:
+                type: "object"
+                properties:
+                   film_id:
+                     type: "integer"
+                   venue_id:
+                     type: "integer"
+                   date:
+                     type: "string"
+                   start_time:
+                     type: "string"
+        responses:
+            200:
+               description: "Event Updated Successfuly"
+            404:
+              description: "Event not found"
+            401:
+              description: "Unauthorized action"
+            400:
+               description: "Invalid data"
+    delete:
+       summary: "Delete an event by ID"
+       security:
+         - bearerAuth: []
+       parameters:
+            - in: "path"
+              name: "id"
+              required: true
+              type: "integer"
+       responses:
+           200:
+              description: "Event deleted Successfully"
+           404:
+              description: "Event not found"
+           401:
+              description: "Unauthorized action"
+  /events/date/{date}:
+      get:
+          summary: "Get all the events by date"
+          security:
+             - bearerAuth: []
+          parameters:
+              - in: "path"
+                name: "date"
+                required: true
+                type: "string"
+          responses:
+              200:
+                  description: "List of events by date"
+              401:
+                  description: "Unauthorized action"
+              400:
+                description: "Invalid date format. Please use YYYY-MM-DD"
+  /events/film/{film_id}:
+        get:
+          summary: "Get all the events by film ID"
+          security:
+             - bearerAuth: []
+          parameters:
+              - in: "path"
+                name: "film_id"
+                required: true
+                type: "integer"
+          responses:
+              200:
+                  description: "List of events by film id"
+              401:
+                  description: "Unauthorized action"
+  /schedules:
+    get:
+      summary: "Get all the schedules"
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: "list of schedules"
+        401:
+           description: "Unauthorized action"
+    post:
+        summary: "Create a new schedule"
+        security:
+            - bearerAuth: []
+        parameters:
+            - in: "body"
+              name: "body"
+              required: true
+              schema:
+                 type: "object"
+                 properties:
+                    user_id:
+                      type: "integer"
+                    event_id:
+                      type: "integer"
+        responses:
+            201:
+               description: "Schedule created successfully"
+            401:
+                description: "Unauthorized action"
+            400:
+               description: "Invalid data"
+  /schedules/{id}:
+    get:
+      summary: "Get a schedule by ID"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: "path"
+          name: "id"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "schedule information"
+        404:
+          description: "Schedule not found"
+        401:
+           description: "Unauthorized action"
+    put:
+        summary: "Update a schedule by ID"
+        security:
+          - bearerAuth: []
+        parameters:
+          - in: "path"
+            name: "id"
+            required: true
+            type: "integer"
+          - in: "body"
+            name: "body"
+            required: true
+            schema:
+                type: "object"
+                properties:
+                    user_id:
+                      type: "integer"
+                    event_id:
+                      type: "integer"
+        responses:
+            200:
+              description: "Schedule updated Successfully"
+            404:
+              description: "Schedule not found"
+            401:
+               description: "Unauthorized action"
+            400:
+              description: "Invalid data"
+    delete:
+       summary: "Delete a schedule by ID"
+       security:
+         - bearerAuth: []
+       parameters:
+         - in: "path"
+           name: "id"
+           required: true
+           type: "integer"
+       responses:
+           200:
+              description: "Schedule deleted Successfuly"
+           404:
+              description: "Schedule not found"
+           401:
+             description: "Unauthorized action"
+  /schedules/user/{user_id}:
+    get:
+      summary: "Get schedules of a user by id"
+      security:
+        - bearerAuth: []
+      parameters:
+          - in: "path"
+            name: "user_id"
+            required: true
+            type: "integer"
+      responses:
+        200:
+          description: "List of schedules"
+        401:
+          description: "Unauthorized action"
+securityDefinitions:
+  bearerAuth:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
